@@ -1,8 +1,15 @@
 from os import environ
+from pathlib import Path
+
 from flask import request
 from src.Utils.JSON_System import JSON_System
 from src import app
 
+import os
+from dotenv import load_dotenv
+
+dotenv_path = Path('../config/.env')
+load_dotenv(dotenv_path=dotenv_path)
 
 class Server:
     __HOST: str
@@ -17,10 +24,12 @@ class Server:
 
     @classmethod
     def __ConfigServer(cls, _host: str = 'localhost', _port: int = 5555):
-        cls.__HOST = environ.get('SERVER_HOST', _host)
+        host = os.getenv('HOST')
+        cls.__HOST = host
 
         try:
-            cls.__PORT = int(environ.get('SERVER_PORT', _port))
+            port = os.getenv('PORT')
+            cls.__PORT = port
 
         except ValueError:
             cls.__PORT = 5555
