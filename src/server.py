@@ -1,12 +1,9 @@
-from os import environ
+import os
 from pathlib import Path
 
-from flask import request
-from src.Utils.JSON_System import JSON_System
-from src import app
-
-import os
 from dotenv import load_dotenv
+
+from src import app
 
 dotenv_path = Path('../config/.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -29,7 +26,7 @@ class Server:
 
         try:
             port = os.getenv('PORT')
-            cls.__PORT = port
+            cls.__PORT = int(port)
 
         except ValueError:
             cls.__PORT = 5555
@@ -38,9 +35,9 @@ class Server:
     def __setSettings(cls):
         try:
             app.logger.info('Attempting to read the server configuration from a file...')
-
-            serverConfig = JSON_System.GetJson('/config/serverConfig')['connect']
-            cls.__ConfigServer(serverConfig['host'], serverConfig['port'])
+            host = os.getenv('HOST')
+            port = os.getenv('PORT')
+            cls.__ConfigServer(host, int(port))
 
             app.logger.info('The basic parameters of the server were successfully set.')
         except:
