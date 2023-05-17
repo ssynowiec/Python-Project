@@ -30,7 +30,7 @@ class Server:
         try:
             app.logger.info('Attempting to read the server configuration from a file...')
 
-            serverConfig = JSON_System.GetJson('\\config\\serverConfig')['connect']
+            serverConfig = JSON_System.GetJson('/config/serverConfig')['connect']
             cls.__ConfigServer(serverConfig['host'], serverConfig['port'])
 
             app.logger.info('The basic parameters of the server were successfully set.')
