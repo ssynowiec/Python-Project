@@ -7,4 +7,4 @@ class IndexController(View, BaseController):
     pass
 
 
-app.add_url_rule('/hello', view_func=IndexController.Show)
+app.add_url_rule('/', view_func=IndexController.indexa)

@@ -3,7 +3,7 @@ from flask import Flask
 from logging.config import dictConfig
 from src.Utils.JSON_System import JSON_System
 
-app: Flask = Flask(__name__)
+app: Flask = Flask(__name__, template_folder='../templates')
 dictConfig(JSON_System.GetJson('/config/loggerConfig'))
 
 
