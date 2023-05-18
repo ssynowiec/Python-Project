@@ -1,7 +1,0 @@
-{
-  "version": 1.0,
-  "connect": {
-    "host": "localhost",
-    "port": 80
-  }
-}
