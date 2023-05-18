@@ -11,6 +11,7 @@
 #
 import os
 from src import app
+from src.server.Server import Server
 
 
 # <Main application boot file>
@@ -28,7 +29,7 @@ if __name__ == '__main__':
                 break
 
             case 'no':
-                print(app.config)
-
-                app.run()
+                # TODO: Improve referencing to the server and make things more secure than the current one.
+                server: Server = Server()
+                server.Start()
                 break

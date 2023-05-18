@@ -1,3 +1,5 @@
+# File: ServerInfo.py
+#
 # A file containing information about the server.
 # It does NOT set server parameters but takes an active part in its configuration
 
@@ -17,19 +19,14 @@ class ServerInfo:
         return _key in cls.__serverInfo
 
     @classmethod
-    def SetConfig(cls, _config: dict) -> None:
-        for key, value in _config.items():
-            if cls.__IsExist(key):
-                cls.__serverInfo.update({key: value})
-
-            else:
-                # TODO: Handle a possible error.
-                pass
-
-    @classmethod
-    def SetConfigs(cls, _key: any, _value: any) -> None:
+    def SetConfig(cls, _key: any, _value: any) -> None:
         if cls.__IsExist(_key):
             cls.__serverInfo.update({_key: _value})
+
+    @classmethod
+    def SetConfigs(cls, _config: dict) -> None:
+        for key, value in _config.items():
+            cls.SetConfig(key, value)
 
     @classmethod
     def GetAllConfig(cls) -> dict:
