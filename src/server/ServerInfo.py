@@ -15,25 +15,25 @@ class ServerInfo:
         cls.__serverInfo = dict(_config)
 
     @classmethod
-    def __IsExist(cls, _key: any):
+    def __is_exist(cls, _key: any):
         return _key in cls.__serverInfo
 
     @classmethod
-    def SetConfig(cls, _key: any, _value: any) -> None:
-        if cls.__IsExist(_key):
+    def set_config(cls, _key: any, _value: any) -> None:
+        if cls.__is_exist(_key):
             cls.__serverInfo.update({_key: _value})
 
     @classmethod
-    def SetConfigs(cls, _config: dict) -> None:
+    def set_configs(cls, _config: dict) -> None:
         for key, value in _config.items():
-            cls.SetConfig(key, value)
+            cls.set_config(key, value)
 
     @classmethod
-    def GetAllConfig(cls) -> dict:
+    def get_all_config(cls) -> dict:
         return cls.__serverInfo
 
     @classmethod
-    def GetConfig(cls, _nameConfigElement: str) -> any:
+    def get_config(cls, _nameConfigElement: str) -> any:
         try:
             value: any = cls.__serverInfo[_nameConfigElement]
         except ValueError:

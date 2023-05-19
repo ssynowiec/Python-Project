@@ -31,5 +31,5 @@ if __name__ == '__main__':
             case 'no':
                 # TODO: Improve referencing to the server and make things more secure than the current one.
                 server: Server = Server()
-                server.Start()
+                server.start()
                 break

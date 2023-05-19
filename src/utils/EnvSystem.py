@@ -25,10 +25,10 @@ class EnvSystem:
 
         cls.__configData = dict()
 
-        cls.__LoadData()
+        cls.__load_data()
 
     @classmethod
-    def __ParseData(cls, _key, _val) -> None:
+    def __parse_data(cls, _key, _val) -> None:
         match _val:
             case 'None':
                 cls.__configData.setdefault(key, None)
@@ -46,13 +46,13 @@ class EnvSystem:
                 cls.__configData.setdefault(key, _val)
 
     @classmethod
-    def __LoadData(cls) -> None:
+    def __load_data(cls) -> None:
         load_dotenv(dotenv_path=cls.__path)
 
     # A method created specifically for retrieving data on server parameters.
     # Better don't touch.
     @classmethod
-    def GetConfigServer(cls, _currentSettings: dict) -> dict:
+    def get_config_server(cls, _currentSettings: dict) -> dict:
         for key, _ in _currentSettings.items():
             val = os.getenv(str(key))
 
@@ -60,6 +60,6 @@ class EnvSystem:
                 cls.__configData.setdefault(key, timedelta(seconds=int(val)))
                 continue
 
-            cls.__ParseData(key, val)
+            cls.__parse_data(key, val)
 
         return cls.__configData

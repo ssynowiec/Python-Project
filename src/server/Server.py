@@ -22,5 +22,5 @@ class Server:
         # TODO: Complete the server configuration using the configuration file.
 
     @classmethod
-    def Start(cls):
+    def start(cls):
         app.run(cls.__HOST, cls.__PORT)

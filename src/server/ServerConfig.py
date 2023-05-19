@@ -13,14 +13,14 @@ class ServerConfig:
 
     @classmethod
     def __init__(cls):
-        cls.__SetDefaultConfig()
+        cls.__set_default_config()
 
     # TODO: Add error handling when the config file doesn't work.
     # A method that sets the server's default parameters. Do not change anything in the dictionary that
     # contains these parameters. This is a backup in case the configuration file is not available or some
     # other sudden error occurs.
     @classmethod
-    def __SetDefaultConfig(cls) -> None:
+    def __set_default_config(cls) -> None:
         defaultConfig: dict = {
             'APPLICATION_ROOT': None,
             'DEBUG': False,
@@ -54,27 +54,27 @@ class ServerConfig:
         cls.__serverInfo = ServerInfo(defaultConfig)
 
     @classmethod
-    def __UpdateSettings(cls) -> None:
-        settingsList: dict = cls.__serverInfo.GetAllConfig()
+    def __update_settings(cls) -> None:
+        settingsList: dict = cls.__serverInfo.get_all_config()
 
         for nameSetting, val in settingsList.items():
             app.config[nameSetting] = val
 
     # Sets one specific parameter.
     @classmethod
-    def SetConfigElement(cls, _nameConfigElement: str, _val: any) -> None:
-        cls.__serverInfo.SetConfig(_nameConfigElement, _val)
+    def set_config_element(cls, _nameConfigElement: str, _val: any) -> None:
+        cls.__serverInfo.set_config(_nameConfigElement, _val)
 
     # Sets the parameter list. The order doesn't matter.
     @classmethod
-    def SetConfigElements(cls, _configList: dict) -> None:
-        cls.__serverInfo.SetConfigs(_configList)
+    def set_config_elements(cls, _configList: dict) -> None:
+        cls.__serverInfo.set_configs(_configList)
 
     # Updates the setting of EVERY item whether it has been changed or not.
     @classmethod
-    def UpdataConfig(cls) -> None:
-        cls.__UpdateSettings()
+    def updata_config(cls) -> None:
+        cls.__update_settings()
 
     @classmethod
-    def GetCurrentSettings(cls) -> dict:
-        return cls.__serverInfo.GetAllConfig()
+    def get_current_settings(cls) -> dict:
+        return cls.__serverInfo.get_all_config()
