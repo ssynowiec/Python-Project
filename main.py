@@ -9,8 +9,6 @@
 #   A project created for the purpose of passing laboratories in object-oriented programming(OOP) in Python. The main
 #   goal of the project is to test knowledge at the intermediate level.
 #
-import os
-from src import app
 from src.server.Server import Server
 
 

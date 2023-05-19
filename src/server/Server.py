@@ -6,7 +6,7 @@
 import os
 from src import app
 from src.server.ServerConfig import ServerConfig
-from src.utils.EnvSystem import EnvSystem
+from src.Utils.EnvSystem import EnvSystem
 
 
 class Server:
