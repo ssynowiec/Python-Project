@@ -1,10 +1,21 @@
-import os
+# Initialization file for all contents of 'src' directory.
+# The content of the file is extremely important globally for the entire application. So do not remove
+# anything from it that could in any way affect the functioning of the application.
+#
+# <Flask's main data package>
+import os.path
+import pathlib
+
 from flask import Flask
-from logging.config import dictConfig
-from src.Utils.JSON_System import JSON_System
 
-app: Flask = Flask(__name__, template_folder='../templates', static_folder='../public')
-dictConfig(JSON_System.GetJson('/config/loggerConfig'))
+app: Flask = Flask(__name__,
+                   root_path=str(pathlib.Path(__file__).parent.parent),
+                   template_folder='templates',
+                   static_folder='public')
 
 
-import src.Controller.IndexController
+###########################################################################
+# All files in the <view> directory should go here.
+# Thanks to this, we clearly tell flask that such files are somewhere in the project and we give it
+# information that they are used to render the image of the web application.
+import src.view.controllerView
