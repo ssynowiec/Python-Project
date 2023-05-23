@@ -1,0 +1,15 @@
+{
+  "name": "Projekt-na-Pythona",
+  "packageManager": "yarn@3.5.0",
+  "scripts": {
+    "start": "yarn build && python3 main.py",
+    "install": "pip install -r requirements.txt && yarn install",
+    "build": "yarn tailwindcss -i ./src/style/input.scss -o ./public/css/main.css --minify",
+    "css": "yarn tailwindcss -i ./src/style/input.scss -o ./public/css/main.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2"
+  }
+}
