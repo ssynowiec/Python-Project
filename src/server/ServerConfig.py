@@ -4,23 +4,31 @@
 # Remember to stick to the SOLID rules when writing here.
 
 from src.server.ServerInfo import ServerInfo
+from src.utils.EnvSystem import EnvSystem
+from src.utils.ParseSystem import ParseSystem
+
 from datetime import timedelta
 from src import app
 
 
 class ServerConfig:
     __serverInfo: ServerInfo
+    __env: EnvSystem
 
     @classmethod
     def __init__(cls):
-        cls.__set_default_config()
+        cls.__env = EnvSystem('ServerConfig.env')
+        cls.__default_config()
 
-    # TODO: Add error handling when the config file doesn't work.
+        if cls.__env.file_exist():
+            cls.__config_file()
+            cls.__use_new_config()
+
     # A method that sets the server's default parameters. Do not change anything in the dictionary that
     # contains these parameters. This is a backup in case the configuration file is not available or some
     # other sudden error occurs.
     @classmethod
-    def __set_default_config(cls) -> None:
+    def __default_config(cls) -> None:
         defaultConfig: dict = {
             'APPLICATION_ROOT': None,
             'DEBUG': False,
@@ -54,27 +62,21 @@ class ServerConfig:
         cls.__serverInfo = ServerInfo(defaultConfig)
 
     @classmethod
-    def __update_settings(cls) -> None:
-        settingsList: dict = cls.__serverInfo.get_all_config()
+    def __config_file(cls) -> None:
+        fileConfig: dict = dict()
 
-        for nameSetting, val in settingsList.items():
-            app.config[nameSetting] = val
+        for key, _ in cls.__serverInfo.get_all_config().items():
+            data: any = EnvSystem.get_env_element(key)
 
-    # Sets one specific parameter.
-    @classmethod
-    def set_config_element(cls, _nameConfigElement: str, _val: any) -> None:
-        cls.__serverInfo.set_config(_nameConfigElement, _val)
+            if key in ['PERMANENT_SESSION_LIFETIME', 'SEND_FILE_MAX_AGE_DEFAULT']:
+                fileConfig.setdefault(key, timedelta(seconds=ParseSystem.auto_parse(data)))
+                continue
 
-    # Sets the parameter list. The order doesn't matter.
-    @classmethod
-    def set_config_elements(cls, _configList: dict) -> None:
-        cls.__serverInfo.set_configs(_configList)
+            fileConfig.setdefault(key, ParseSystem.auto_parse(data))
 
-    # Updates the setting of EVERY item whether it has been changed or not.
-    @classmethod
-    def updata_config(cls) -> None:
-        cls.__update_settings()
+        cls.__serverInfo.set_configs(fileConfig)
 
     @classmethod
-    def get_current_settings(cls) -> dict:
-        return cls.__serverInfo.get_all_config()
+    def __use_new_config(cls) -> None:
+        for key, val in cls.__serverInfo.get_all_config().items():
+            app.config[key] = val

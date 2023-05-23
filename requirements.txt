@@ -11,3 +11,5 @@ pip >= 23.1.2
 setuptools==67.8.0
 wheel >= 0.38.4
 python-dotenv>=1.0.0
+multipledispatch>=0.6.0
+pythonlangutil==0.1

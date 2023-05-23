@@ -15,12 +15,12 @@ class ServerInfo:
         cls.__serverInfo = dict(_config)
 
     @classmethod
-    def __is_exist(cls, _key: any) -> bool:
+    def __is_key_exist(cls, _key: any) -> bool:
         return _key in cls.__serverInfo
 
     @classmethod
-    def set_config(cls, _key: any, _value: any) -> None:
-        if cls.__is_exist(_key):
+    def set_config(cls, _key: str, _value: any) -> None:
+        if cls.__is_key_exist(_key):
             cls.__serverInfo.update({_key: _value})
 
     @classmethod
@@ -31,13 +31,3 @@ class ServerInfo:
     @classmethod
     def get_all_config(cls) -> dict:
         return cls.__serverInfo
-
-    @classmethod
-    def get_config(cls, _nameConfigElement: str) -> any:
-        try:
-            value: any = cls.__serverInfo[_nameConfigElement]
-        except ValueError:
-            # TODO: Add appropriate logs to the code!
-            value = None
-
-        return value

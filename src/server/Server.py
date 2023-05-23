@@ -3,11 +3,9 @@
 # The main file responsible for the server.
 # Its main task is to start the server and coordinate with other software files.
 
-import os
 from src import app
 from src.server.ServerConfig import ServerConfig
 from src.utils.EnvSystem import EnvSystem
-from src.utils.ParseSystem import ParseSystem
 
 
 class Server:
@@ -20,7 +18,7 @@ class Server:
 
         cls.__HOST = EnvSystem.get_env_element('SERVER_HOST')
         cls.__PORT = EnvSystem.get_env_element('SERVER_PORT')
-        # TODO: Complete the server configuration using the configuration file.
+        ServerConfig()
 
     @classmethod
     def start(cls) -> None:
