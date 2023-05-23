@@ -18,4 +18,4 @@ app: Flask = Flask(__name__,
 # All files in the <view> directory should go here.
 # Thanks to this, we clearly tell flask that such files are somewhere in the project and we give it
 # information that they are used to render the image of the web application.
-import src.view.controllerView
+import src.view.ControllerView
