@@ -3,6 +3,8 @@
 # The class responsible for files and things related to them.
 
 import os
+import pathlib
+from pathlib import Path
 
 
 class FileSystem:
@@ -21,3 +23,7 @@ class FileSystem:
     @staticmethod
     def exist_file( _pathToFile) -> bool:
         return os.path.exists(_pathToFile)
+
+    @staticmethod
+    def get_root_folder() -> Path:
+        return pathlib.Path(__file__).parent.parent.parent

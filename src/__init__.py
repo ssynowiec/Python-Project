@@ -4,12 +4,12 @@
 #
 # <Flask's main data package>
 import os.path
-import pathlib
+from src.utils.FileSystem import FileSystem
 
 from flask import Flask
 
 app: Flask = Flask(__name__,
-                   root_path=str(pathlib.Path(__file__).parent.parent),
+                   root_path=str(FileSystem.get_root_folder()),
                    template_folder='templates',
                    static_folder='public')
 

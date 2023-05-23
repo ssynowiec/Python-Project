@@ -7,6 +7,7 @@ import os
 from src import app
 from src.server.ServerConfig import ServerConfig
 from src.utils.EnvSystem import EnvSystem
+from src.utils.ParseSystem import ParseSystem
 
 
 class Server:
@@ -15,12 +16,12 @@ class Server:
 
     @classmethod
     def __init__(cls):
-        env: EnvSystem = EnvSystem('serverConfig.env')
+        EnvSystem('serverConfig.env')
 
-        cls.__HOST = os.getenv('SERVER_HOST')
-        cls.__PORT = int(os.getenv('SERVER_PORT'))
+        cls.__HOST = EnvSystem.get_env_element('SERVER_HOST')
+        cls.__PORT = EnvSystem.get_env_element('SERVER_PORT')
         # TODO: Complete the server configuration using the configuration file.
 
     @classmethod
-    def start(cls):
+    def start(cls) -> None:
         app.run(cls.__HOST, cls.__PORT)

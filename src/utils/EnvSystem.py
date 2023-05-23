@@ -9,6 +9,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
 from src.server.ServerInfo import ServerInfo
+from src.utils.ParseSystem import ParseSystem
 
 
 class EnvSystem:
@@ -22,28 +23,9 @@ class EnvSystem:
     def __init__(cls, _fileName: str):
         cls.__fileName = _fileName
         cls.__path = Path('config/' + _fileName)
-
         cls.__configData = dict()
 
         cls.__load_data()
-
-    @classmethod
-    def __parse_data(cls, _key, _val) -> None:
-        match _val:
-            case 'None':
-                cls.__configData.setdefault(key, None)
-
-            case 'False':
-                cls.__configData.setdefault(key, False)
-
-            case 'True':
-                cls.__configData.setdefault(key, True)
-
-            case _val if _val.isdecimal():
-                cls.__configData.setdefault(key, float(_val))
-
-            case _:
-                cls.__configData.setdefault(key, _val)
 
     @classmethod
     def __load_data(cls) -> None:
@@ -54,12 +36,16 @@ class EnvSystem:
     @classmethod
     def get_config_server(cls, _currentSettings: dict) -> dict:
         for key, _ in _currentSettings.items():
-            val = os.getenv(str(key))
+            val = EnvSystem.get_env_element(key)
 
             if key in ['PERMANENT_SESSION_LIFETIME', 'SEND_FILE_MAX_AGE_DEFAULT']:
                 cls.__configData.setdefault(key, timedelta(seconds=int(val)))
                 continue
 
-            cls.__parse_data(key, val)
+            cls.__configData.setdefault(key, ParseSystem.auto_parse(val))
 
         return cls.__configData
+
+    @staticmethod
+    def get_env_element(_nameElement: str) -> any:
+        return ParseSystem.auto_parse(os.getenv(_nameElement))

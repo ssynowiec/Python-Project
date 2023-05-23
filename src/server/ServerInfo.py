@@ -15,7 +15,7 @@ class ServerInfo:
         cls.__serverInfo = dict(_config)
 
     @classmethod
-    def __is_exist(cls, _key: any):
+    def __is_exist(cls, _key: any) -> bool:
         return _key in cls.__serverInfo
 
     @classmethod
