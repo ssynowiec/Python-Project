@@ -12,6 +12,7 @@ from src import app
 
 
 class ServerConfig:
+    """The class responsible for the main configuration of the entire server."""
     __serverInfo: ServerInfo
     __env: EnvSystem
 

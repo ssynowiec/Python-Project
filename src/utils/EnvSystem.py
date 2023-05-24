@@ -11,6 +11,13 @@ from src.utils.ParseSystem import ParseSystem
 
 
 class EnvSystem:
+    """
+    A class responsible for handling <.env> files.
+    It is a kind of helper for handling these files.
+
+    Parameters:
+        _fileName (str): The name of the file from which we want to obtain data. The full path is not necessary.
+    """
     __fileName: str
     __path: Path
 
@@ -30,6 +37,12 @@ class EnvSystem:
 
     @classmethod
     def file_exist(cls) -> bool:
+        """
+        The method checks whether the file exists in the given location.
+
+        Return:
+             The method returns <True> when the file exists.
+        """
         if find_dotenv(ParseSystem.to_string(cls.__path)):
             return True
 
@@ -37,4 +50,13 @@ class EnvSystem:
 
     @staticmethod
     def get_env_element(_nameElement: str) -> any:
+        """
+        The method retrieves the value matching the parameter from the opened file.
+
+        Parameters:
+            _nameElement (str): Label name from env file.
+
+        Return:
+            The method returns the given value which is appropriately parsed into the corresponding data type.
+        """
         return ParseSystem.auto_parse(os.getenv(_nameElement))

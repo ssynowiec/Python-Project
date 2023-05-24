@@ -9,6 +9,7 @@ from src.utils.EnvSystem import EnvSystem
 
 
 class Server:
+    """The main class responsible for the basic functions of the server."""
     __HOST: str
     __PORT: int
 
@@ -22,4 +23,5 @@ class Server:
 
     @classmethod
     def start(cls) -> None:
+        """Method to start the server"""
         app.run(cls.__HOST, cls.__PORT)
