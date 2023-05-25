@@ -9159,8 +9159,8 @@ var createModule = function() {
       },
       createSpecialDirectories: function() {
         FS.mkdir("/proc");
-        var proc_self = FS.mkdir("/proc/self");
-        FS.mkdir("/proc/self/fd");
+        var proc_self = FS.mkdir("/proc/cls");
+        FS.mkdir("/proc/cls/fd");
         FS.mount(
           {
             mount: function() {
@@ -9188,7 +9188,7 @@ var createModule = function() {
             }
           },
           {},
-          "/proc/self/fd"
+          "/proc/cls/fd"
         );
       },
       createStandardStreams: function() {
